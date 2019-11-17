@@ -1,0 +1,28 @@
+{
+  "name": "@mikemimik/command",
+  "version": "1.0.0",
+  "description": "command class used with cli-project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mikemimik/command.git"
+  },
+  "author": "Michael Perrotte <mike@npmjs.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mikemimik/command/issues"
+  },
+  "homepage": "https://github.com/mikemimik/command#readme",
+  "dependencies": {
+    "@hapi/joi": "^16.1.7",
+    "lodash": "^4.17.15",
+    "npmlog": "^4.1.2"
+  },
+  "devDependencies": {
+    "standard": "^14.3.1",
+    "tap": "^14.9.2"
+  }
+}
