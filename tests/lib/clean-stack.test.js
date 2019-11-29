@@ -1,6 +1,6 @@
 'use strict'
 
-const dedent = require('dedent')
+// const dedent = require('dedent')
 const { join } = require('path')
 const fs = require('fs')
 const t = require('tap')

@@ -4,7 +4,8 @@
   "description": "command class used with cli-project",
   "main": "index.js",
   "scripts": {
-    "test": "tap --100 tests/**/*.test.js",
+    "lint": "standard",
+    "test": "tap --100 tests/*.test.js tests/**/*.test.js",
     "coverage": "tap --coverage-report=html"
   },
   "repository": {
