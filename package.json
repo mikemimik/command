@@ -4,7 +4,8 @@
   "description": "command class used with cli-project",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "tap --100 tests/**/*.test.js",
+    "coverage": "tap --coverage-report=html"
   },
   "repository": {
     "type": "git",
@@ -22,7 +23,12 @@
     "npmlog": "^4.1.2"
   },
   "devDependencies": {
+    "dedent": "^0.7.0",
+    "require-inject": "^1.4.4",
     "standard": "^14.3.1",
-    "tap": "^14.9.2"
+    "tap": "^14.10.2"
+  },
+  "tap": {
+    "check-coverage": true
   }
 }
