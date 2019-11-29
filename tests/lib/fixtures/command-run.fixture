@@ -1,0 +1,8 @@
+Error: boom execute
+    at FooCommand.execute (/Users/mperrotte/repos/command/poop.js:14:11)
+    at FooCommand.runCommand (/Users/mperrotte/repos/command/src/command.js:127:19)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:189:7)
+    at Function.Module.runMain (module.js:696:11)
+    at startup (bootstrap_node.js:204:16)
+    at bootstrap_node.js:625:3
