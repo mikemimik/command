@@ -1,6 +1,7 @@
 'use strict'
 
 const log = require('npmlog')
+const _ = require('lodash')
 
 const ValidationError = require('../lib/validation-error')
 const cleanStack = require('../lib/clean-stack')
@@ -8,7 +9,8 @@ const cleanStack = require('../lib/clean-stack')
 module.exports = class Command {
   constructor (argv) {
     log.pause()
-    log.heading = 'nops'
+    // TODO: figure out how to set this
+    log.heading = 'cli'
 
     log.silly('argv', argv)
 
@@ -24,43 +26,40 @@ module.exports = class Command {
     }
 
     // INFO: luanch the command
-    const runner = async () => {
-      const chain = async () => {
+    const runner = (async () => {
+      try {
         await this.configureEnvironment()
         await this.configureOptions()
         await this.configureProperties()
         await this.configureLogging()
         await this.runValidations()
         await this.runPreparations()
-        return this.runCommand()
-      }
-
-      chain.then(
-        (result) => {
+        const result = await this.runCommand()
         // TODO: add warnIfHanging() here
-
-          return result
-        },
-        (err) => {
-          if (err.name !== 'ValidationError') {
-            log.error('', cleanStack(err, this.constructor.name))
-          }
-
-          if (err.name !== 'ValidationError') {
-            // TODO: implement writeLogFile()
-          }
-
-          // TODO: add warnIfHanging() here
-          // INFO: error code is handled by cli.fail()
-          throw err
+        return result
+      } catch (err) {
+        if (err.name !== 'ValidationError') {
+          log.error('', cleanStack(err, this.constructor.name))
         }
-      )
-    }
+
+        if (err.name !== 'ValidationError') {
+          // TODO: implement writeLogFile()
+        }
+
+        // TODO: add warnIfHanging() here
+        // INFO: error code is handled by cli.fail()
+        throw err
+      }
+    })()
 
     // INFO: 'hide' irrelevant argv keys from options
     for (const key of ['cwd', '$0']) {
       Object.defineProperty(argv, key, { enumerable: false })
     }
+
+    Object.defineProperty(this, 'argv', {
+      value: Object.freeze(argv)
+    })
 
     Object.defineProperty(this, 'runner', {
       value: runner
@@ -76,15 +75,36 @@ module.exports = class Command {
     return this.runner.catch(onRejected)
   }
 
-  async configureEnvironment () {}
+  async configureEnvironment () {
+    const loglevel = 'error'
+    const progress = false
 
-  async configureOptions () {}
+    Object.defineProperty(this, 'envDefaults', {
+      value: {
+        progress,
+        loglevel
+      }
+    })
+  }
+
+  async configureOptions () {
+    this.options = _.defaults(
+      {},
+      this.argv,
+      this.envDefaults
+    )
+  }
 
   async configureProperties () {}
 
   async configureLogging () {
     const { loglevel } = this.options
 
+    /**
+     * NOTE: redundant if statement
+     * loglevel will default to 'error', which means it will always be set,
+     * and truthy
+     */
     if (loglevel) {
       log.level = loglevel
     }
