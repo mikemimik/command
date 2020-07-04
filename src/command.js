@@ -52,10 +52,10 @@ module.exports = class Command {
       }
     })()
 
-    // INFO: 'hide' irrelevant argv keys from options
-    for (const key of ['cwd', '$0']) {
-      Object.defineProperty(argv, key, { enumerable: false })
-    }
+    // // INFO: 'hide' irrelevant argv keys from options
+    // for (const key of ['cwd', '$0']) {
+    //   Object.defineProperty(argv, key, { enumerable: false })
+    // }
 
     Object.defineProperty(this, 'argv', {
       value: Object.freeze(argv)
