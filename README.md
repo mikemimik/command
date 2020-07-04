@@ -23,7 +23,7 @@ const { Command, Definition } = require('@mikemimik/command')
 class SomeCommand extends Command {
 
   /**
-   * NOTE: Implement methods
+   * NOTE: Implement Methods
    * The following commands need to be implemented in order for the command
    * to function correctly.
    *
