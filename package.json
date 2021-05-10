@@ -20,7 +20,7 @@
   "homepage": "https://github.com/mikemimik/command#readme",
   "dependencies": {
     "@hapi/joi": "^16.1.7",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "npmlog": "^4.1.2"
   },
   "devDependencies": {
